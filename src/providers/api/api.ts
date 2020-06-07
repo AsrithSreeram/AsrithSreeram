@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
  */
 @Injectable()
 export class Api {
-  url: string = 'https://example.com/api/v1';
+  url: string = 'http://localhost:8080';
 
   constructor(public http: HttpClient) {
   }
@@ -30,7 +30,12 @@ export class Api {
   }
 
   post(endpoint: string, body: any, reqOpts?: any) {
-    return this.http.post(this.url + '/' + endpoint, body, reqOpts);
+    return this.http.post(this.url + '/' + endpoint, body, {
+      headers: {'Content-Type': 'application/json',
+     'Accept': 'application/json',
+     'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT'
+    }
+    });
   }
 
   put(endpoint: string, body: any, reqOpts?: any) {
